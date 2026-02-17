@@ -1,0 +1,40 @@
+@use "@/styles/variables" as var;
+@use "@/styles/extension" as *;
+
+.card {
+  padding: rem(24);
+  text-align: center;
+  background-color: #1a1a2e;
+  border-radius: rem(12);
+}
+
+.cardTitle {
+  font-size: rem(18);
+  font-weight: 600;
+}
+
+.emoji {
+  margin-top: rem(12);
+  font-size: rem(48);
+}
+
+.temperature {
+  margin-top: rem(8);
+  font-size: rem(32);
+  font-weight: 700;
+}
+
+.weatherDescription {
+  margin-top: rem(4);
+  font-size: rem(14);
+  color: #aaa;
+}
+
+.details {
+  display: flex;
+  gap: rem(16);
+  justify-content: center;
+  margin-top: rem(12);
+  font-size: rem(13);
+  color: #888;
+}

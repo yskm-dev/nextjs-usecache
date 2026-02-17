@@ -1,0 +1,107 @@
+@use "@/styles/variables" as var;
+@use "@/styles/extension" as *;
+
+.container {
+  max-width: rem(800);
+  padding: rem(40) rem(20);
+  margin: 0 auto;
+}
+
+.backLink {
+  font-size: rem(14);
+  color: #888;
+  transition: color 0.2s;
+
+  &:hover {
+    color: #fff;
+  }
+}
+
+.title {
+  margin-top: rem(16);
+  font-size: rem(28);
+  font-weight: 700;
+}
+
+.current {
+  margin-top: rem(24);
+  padding: rem(32);
+  text-align: center;
+  background-color: #1a1a2e;
+  border-radius: rem(12);
+}
+
+.emoji {
+  font-size: rem(64);
+}
+
+.temperature {
+  margin-top: rem(8);
+  font-size: rem(48);
+  font-weight: 700;
+}
+
+.weatherDescription {
+  margin-top: rem(4);
+  font-size: rem(16);
+  color: #aaa;
+}
+
+.details {
+  display: flex;
+  gap: rem(24);
+  justify-content: center;
+  margin-top: rem(16);
+  font-size: rem(14);
+  color: #888;
+}
+
+.forecastSection {
+  margin-top: rem(32);
+}
+
+.forecastTitle {
+  font-size: rem(20);
+  font-weight: 600;
+}
+
+.forecastGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: rem(8);
+  margin-top: rem(16);
+}
+
+.forecastCard {
+  padding: rem(16) rem(8);
+  text-align: center;
+  background-color: #1a1a2e;
+  border-radius: rem(8);
+}
+
+.forecastDate {
+  font-size: rem(12);
+  color: #aaa;
+}
+
+.forecastEmoji {
+  margin-top: rem(8);
+  font-size: rem(24);
+}
+
+.forecastTemp {
+  display: flex;
+  gap: rem(8);
+  justify-content: center;
+  margin-top: rem(8);
+  font-size: rem(13);
+}
+
+.maxTemp {
+  font-weight: 600;
+  color: #ff6b6b;
+}
+
+.minTemp {
+  color: #6bc5ff;
+}

@@ -1,2 +1,36 @@
 @use "@/styles/variables" as var;
 @use "@/styles/extension" as *;
+
+.container {
+  max-width: rem(800);
+  padding: rem(40) rem(20);
+  margin: 0 auto;
+}
+
+.title {
+  font-size: rem(28);
+  font-weight: 700;
+  text-align: center;
+}
+
+.description {
+  margin-top: rem(8);
+  font-size: rem(14);
+  color: #888;
+  text-align: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(rem(200), 1fr));
+  gap: rem(20);
+  margin-top: rem(32);
+}
+
+.cardLink {
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: translateY(rem(-4));
+  }
+}
