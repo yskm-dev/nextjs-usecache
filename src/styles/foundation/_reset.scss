@@ -1,0 +1,105 @@
+@use '../extension' as *;
+@use '../variables' as var;
+
+*:where(:not(html, iframe, canvas, img, svg, video, a, dialog, svg *, symbol *)) {
+  all: unset;
+  display: revert;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  @if var.$rem != 16 {
+    font-size: calc(var.$rem / 16 * 100%);
+  }
+
+  text-size-adjust: 100%;
+}
+
+body {
+  font-size: rem(16);
+}
+
+a,
+button {
+  cursor: revert;
+}
+
+ul,
+ol,
+menu,
+details {
+  list-style-type: '';
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  max-width: 100%;
+  height: auto;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+input,
+textarea,
+select {
+  appearance: none;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+textarea {
+  white-space: revert;
+}
+
+meter {
+  appearance: revert;
+}
+
+b,
+strong {
+  font-weight: bold;
+}
+
+em,
+i {
+  font-style: italic;
+}
+
+s,
+strike,
+del {
+  text-decoration: line-through;
+}
+
+sup {
+  font-size: smaller;
+  vertical-align: super;
+}
+
+sub {
+  font-size: smaller;
+  vertical-align: sub;
+}
+
+::placeholder {
+  color: unset;
+}
+
+:where([hidden]) {
+  display: none;
+}

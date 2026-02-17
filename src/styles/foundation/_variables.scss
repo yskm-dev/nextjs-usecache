@@ -1,0 +1,118 @@
+@use "../extension" as *;
+@use "../variables" as var;
+
+:root {
+  --color-text: #1e293b;
+  --color-background: #f8fafc;
+  --color-header: #f8fafca0;
+  --color-selected: #f1f5f9;
+  --color-unselected: #94a3b8;
+  --color-primary: #dc2626;
+  --color-primary-hover: #b91c1c;
+  --color-secondary: #64748b;
+  --color-border: #e2e8f0;
+  --100vw: 100vw;
+  --1rem: 1rem;
+  --window-width: calc(
+    tan(atan2(var(--100vw), 1px)) *
+      min(1, #{var.$rem} / tan(atan2(var(--1rem), 1px)))
+  );
+
+  @if var.$full-liquid {
+    /**
+     * 現在最大幅よりどれくらい大きくしているか
+     */
+    --scale: max(1, var(--window-width) / #{var.$max-width});
+
+    /**
+     *  --scale を元に px と rem を計算
+     */
+    --px: #{calc(1px * var(--scale))};
+    --rem: #{calc(1rem * var(--scale))};
+  }
+
+  --max-width: #{max(px(var.$max-width), rem(var.$max-width))};
+  --font-size-base: #{rem(16)};
+  --line-height-base: 1.7;
+  --font-size-heading-1: #{rem(30)};
+  --line-height-heading-1: 1.7;
+  --font-size-heading-2: #{rem(24)};
+  --line-height-heading-2: 1.7;
+  --font-size-heading-3: #{rem(20)};
+  --line-height-heading-3: 1.7;
+  --font-size-heading-4: #{rem(16)};
+  --line-height-heading-4: 1.7;
+  --font-size-heading-5: #{rem(14)};
+  --line-height-heading-5: 1.7;
+  --font-size-heading-6: #{rem(12)};
+  --line-height-heading-6: 1.7;
+  --font-size-large: #{rem(20)};
+  --line-height-large: 1.7;
+  --font-size-medium: #{rem(14)};
+  --font-size-small: #{rem(12)};
+  --line-height-small: 1.7;
+  --margin-xxl: #{rem(120)};
+  --margin-xl: #{rem(80)};
+  --margin-l: #{rem(48)};
+  --margin-m: #{rem(24)};
+  --margin-s: #{rem(16)};
+  --margin-xs: #{rem(8)};
+  --margin-xxs: #{rem(4)};
+  --border-radius-s: #{rem(8)};
+  --border-radius-m: #{rem(12)};
+  --border-radius-l: #{rem(16)};
+
+  @include mq-lt("md") {
+    --font-size-heading-1: #{rem(26)};
+    --font-size-heading-2: #{rem(22)};
+    --font-size-heading-3: #{rem(18)};
+    --font-size-large: #{rem(20)};
+    --font-size-medium: #{rem(14)};
+    --font-size-small: #{rem(12)};
+    --margin-xxl: #{rem(80)};
+    --margin-xl: #{rem(40)};
+    --margin-l: #{rem(24)};
+    --margin-m: #{rem(12)};
+    --margin-s: #{rem(8)};
+    --margin-xs: #{rem(4)};
+    --margin-xxs: #{rem(2)};
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  // :root {
+  //   --color-text: #f1f5f9;
+  //   --color-secondary: #94a3b8;
+  //   --color-background: #0f172a;
+  //   --color-header: #0f172aa0;
+  //   --color-primary: #ef4444;
+  //   --color-selected: #1e293b;
+  //   --color-unselected: #334155;
+  //   --color-accent: #007aff;
+  //   --color-border: #334155;
+  // }
+}
+
+html[data-theme="dark"] {
+  --color-text: #f1f5f9;
+  --color-secondary: #94a3b8;
+  --color-background: #0f172a;
+  --color-header: #0f172aa0;
+  --color-primary: #ef4444;
+  --color-selected: #1e293b;
+  --color-unselected: #334155;
+  --color-accent: #007aff;
+  --color-border: #334155;
+}
+
+@property --100vw {
+  syntax: "<length>";
+  initial-value: 0;
+  inherits: false;
+}
+
+@property --1rem {
+  syntax: "<length>";
+  initial-value: 0;
+  inherits: false;
+}

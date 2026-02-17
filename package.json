@@ -1,0 +1,50 @@
+{
+  "name": "my-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "pages:build": "opennextjs-cloudflare build",
+    "cf:build": "opennextjs-cloudflare build",
+    "cf:preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "cf:deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@svgr/webpack": "^8.1.0",
+    "@tanstack/react-query": "^5.90.21",
+    "animejs": "^4.3.5",
+    "gsap": "^3.14.2",
+    "lenis": "^1.3.17",
+    "microcms-js-sdk": "^3.2.0",
+    "next": "16.1.5",
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
+  },
+  "devDependencies": {
+    "@markuplint/jsx-parser": "^4.7.22",
+    "@markuplint/react-spec": "^4.5.22",
+    "@opennextjs/cloudflare": "^1.16.5",
+    "@types/node": "^20.19.30",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "esbuild": "^0.27.3",
+    "eslint": "^9",
+    "eslint-config-next": "16.1.5",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "markuplint": "^4.14.0",
+    "prettier": "^3.8.1",
+    "sass": "^1.97.3",
+    "stylelint": "^17.0.0",
+    "stylelint-config-html": "^1.1.0",
+    "stylelint-config-prettier-scss": "^1.0.0",
+    "stylelint-config-recess-order": "^7.6.0",
+    "stylelint-config-standard-scss": "^17.0.0",
+    "typescript": "^5",
+    "vercel": "^50.9.6",
+    "wrangler": "^4.65.0"
+  }
+}

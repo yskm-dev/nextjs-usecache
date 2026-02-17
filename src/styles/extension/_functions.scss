@@ -1,0 +1,165 @@
+@use "sass:math";
+@use "sass:meta";
+@use "../variables" as var;
+
+@function round-decimal($number, $digits: 0) {
+  @return to-fixed($number, $digits, "round");
+}
+
+@function ceil-decimal($number, $digits: 0) {
+  @return to-fixed($number, $digits, "ceil");
+}
+
+@function floor-decimal($number, $digits: 0) {
+  @return to-fixed($number, $digits, "floor");
+}
+
+@function to-fixed($number, $digits: 0, $round: "round") {
+  $n: 1;
+
+  // $number must be a number
+  @if meta.type-of($number) != number {
+    @warn '#{ $number } is not a number.';
+    @return $number;
+  }
+
+  // $digits must be a unitless number
+  @if meta.type-of($digits) != number {
+    @warn '#{ $digits } is not a number.';
+    @return $number;
+  } @else if not math.is-unitless($digits) {
+    @warn '#{ $digits } has a unit.';
+    @return $number;
+  }
+
+  @for $I from 1 through $digits {
+    $n: $n * 10;
+  }
+
+  @if $round == "round" {
+    @return calc(math.round($number * $n) / $n);
+  } @else if $round == "ceil" {
+    @return calc(math.ceil($number * $n) / $n);
+  } @else if $round == "floor" {
+    @return calc(math.floor($number * $n) / $n);
+  } @else {
+    @warn '#{ $round } is undefined keyword.';
+    @return $number;
+  }
+}
+
+@function auto-round-decimal($number) {
+  $abs-number: math.abs($number);
+
+  @if $abs-number >= 1 {
+    @return round-decimal($number, 3);
+  } @else if $abs-number >= 0.1 {
+    @return ceil-decimal($number, 3);
+  } @else if $abs-number >= 0.01 {
+    @return ceil-decimal($number, 4);
+  } @else if $abs-number >= 0.001 {
+    @return ceil-decimal($number, 5);
+  } @else if $abs-number >= 0.0001 {
+    @return ceil-decimal($number, 6);
+  } @else {
+    @return ceil-decimal($number, 7);
+  }
+}
+
+@function fluid-size($bpLower, $bpUpper, $min, $max, $unit: "", $stop: true) {
+  $a: 100 * calc(($max - $min) / ($bpUpper - $bpLower));
+  $b: $min - calc($bpLower / 100) * $a;
+  $n: $min;
+  $x: $max;
+  $division: 1;
+  $times: 1;
+  $times-unit: $unit;
+
+  @if $unit == "rem" {
+    $division: var.$rem;
+    $times: var.$one-rem;
+    $times-unit: "";
+  } @else if $unit == "px" {
+    $times: var.$one-px;
+    $times-unit: "";
+  }
+
+  $fluid-value: auto-round-decimal(calc($a / $division / 100)) "+"
+    auto-round-decimal(calc($b / $division));
+  $fluid-times: "*" #{$times}#{$times-unit};
+
+  @if $unit == "" {
+    $fluid-times: "";
+  }
+
+  @if $stop {
+    @if $min > $max {
+      $n: $max;
+      $x: $min;
+    }
+
+    $start: calc($n / $division * $times);
+    $end: calc($x / $division * $times);
+
+    @if var.$full-liquid and ($unit == "px" or $unit == "rem") {
+      $start: auto-round-decimal(calc($n / $division)) "*" $times;
+      $end: auto-round-decimal(calc($x / $division)) "*" $times;
+    } @else {
+      $start: auto-round-decimal(calc($n / $division * $times));
+      $end: auto-round-decimal(calc($x / $division * $times));
+    }
+
+    @return clamp(
+      #{$start}#{$times-unit},
+      (var(--window-width) * #{$fluid-value}) #{$fluid-times},
+      #{$end}#{$times-unit}
+    );
+  } @else {
+    @if var.$full-liquid {
+      @if $unit == "px" or $unit == "rem" {
+        $end: $x / $division "*" $times;
+      } @else {
+        $end: calc($x / $division * $times);
+      }
+
+      @if $min > $max {
+        @return max(
+          #{$end}#{$times-unit},
+          (var(--window-width) * #{$fluid-value}) #{$fluid-times}
+        );
+      } @else {
+        @return min(
+          #{$end}#{$times-unit},
+          (var(--window-width) * #{$fluid-value}) #{$fluid-times}
+        );
+      }
+    } @else {
+      @return calc((var(--window-width) * #{$fluid-value}) #{$fluid-times});
+    }
+  }
+}
+
+@function rem($px, $useVar: true) {
+  $one-rem: 1rem;
+
+  @if $useVar {
+    $one-rem: var.$one-rem;
+  }
+
+  @return calc($px / var.$rem * $one-rem);
+}
+
+@function px($px, $useVar: true) {
+  @return calc($px * var.$one-px);
+}
+
+@function width($px) {
+  @return #{max(px($px), rem($px))};
+}
+
+@function fluid-width($bpLower, $bpUpper, $min, $max) {
+  @return #{max(
+      fluid-size($bpLower, $bpUpper, $min, $max, "px"),
+      fluid-size($bpLower, $bpUpper, $min, $max, "rem")
+    )};
+}

@@ -1,0 +1,171 @@
+@use 'sass:map';
+@use 'sass:meta';
+@use '../variables' as var;
+@use 'functions' as *;
+
+$break-points: (
+  'sm': var.$mq-sm,
+  'md': var.$mq-md,
+  'lg': var.$mq-lg,
+  'xl': var.$mq-xl,
+) !default;
+
+@function get-break-point($_break-point) {
+  $break-point: meta.inspect($_break-point);
+
+  @if map.has-key($break-points, $_break-point) {
+    $break-point: map.get($break-points, $_break-point);
+  } @else if meta.type-of($_break-point) != 'number' {
+    @error '#{ $_break-point } is not a number.';
+  } @else {
+    $break-point: $_break-point;
+  }
+
+  @return $break-point;
+}
+
+@mixin mq-screen($value) {
+  @media screen and ($value) {
+    @content;
+  }
+}
+
+@mixin mq-gt($_break-point, $unit: px) {
+  $break-point: get-break-point($_break-point);
+
+  @if $unit == 'px' {
+    @media screen and (width > max(#{$break-point}#{$unit}, #{calc($break-point / 16)}rem)) {
+      @content;
+    }
+  } @else {
+    @media screen and (width > #{$break-point}#{$unit}) {
+      @content;
+    }
+  }
+}
+
+@mixin mq-gte($_break-point, $unit: px) {
+  $break-point: get-break-point($_break-point);
+
+  @if $unit == 'px' {
+    @media screen and (width >= max(#{$break-point}#{$unit}, #{calc($break-point / 16)}rem)) {
+      @content;
+    }
+  } @else {
+    @media screen and (width >= #{$break-point}#{$unit}) {
+      @content;
+    }
+  }
+}
+
+@mixin mq-lt($_break-point, $unit: px) {
+  $break-point: get-break-point($_break-point);
+
+  @if $unit == 'px' {
+    @media screen and (width < max(#{$break-point}#{$unit}, #{calc($break-point / 16)}rem)) {
+      @content;
+    }
+  } @else {
+    @media screen and (width < #{$break-point}#{$unit}) {
+      @content;
+    }
+  }
+}
+
+@mixin mq-lte($_break-point, $unit: px) {
+  $break-point: get-break-point($_break-point);
+
+  @if $unit == 'px' {
+    @media screen and (width <= max(#{$break-point}#{$unit}, #{calc($break-point / 16)}rem)) {
+      @content;
+    }
+  } @else {
+    @media screen and (width <= #{$break-point}#{$unit}) {
+      @content;
+    }
+  }
+}
+
+@mixin mq-between($_min, $_max, $unit: px) {
+  $min: get-break-point($_min);
+  $max: get-break-point($_max);
+
+  @if $unit == 'px' {
+    @media screen and (max(#{$min}#{$unit}, #{calc($min / 16)}rem) < width <= max(#{$max}#{$unit}, #{calc($max / 16)}rem)) {
+      @content;
+    }
+  } @else {
+    @media screen and (#{$min}#{$unit} <= width < #{$max}#{$unit}) {
+      @content;
+    }
+  }
+}
+
+/**
+ * Legacy media query mixins
+ **/
+// @mixin mq-min($_break-point, $unit: px) {
+//   $break-point: meta.inspect($_break-point);
+
+//   @if map.has-key($break-points, $_break-point) {
+//     $break-point: map.get($break-points, $_break-point) + 1;
+//   } @else if meta.type-of($_break-point) != 'number' {
+//     @error '#{ $_break-point } is not a number.';
+//   }
+
+//   @media screen and (min-width: #{$break-point}#{$unit}) {
+//     @content;
+//   }
+// }
+
+// @mixin mq-max($_break-point, $unit: px) {
+//   $break-point: meta.inspect($_break-point);
+
+//   @if map.has-key($break-points, $_break-point) {
+//     $break-point: map.get($break-points, $_break-point);
+//   } @else if meta.type-of($_break-point) != 'number' {
+//     @error '#{ $_break-point } is not a number.';
+//   }
+
+//   @media screen and (max-width: #{$break-point}#{$unit}) {
+//     @content;
+//   }
+// }
+
+// @mixin mq-min-max($_min, $_max) {
+//   $min: meta.inspect($_min);
+//   $max: meta.inspect($_max);
+
+//   @if map.has-key($break-points, $_min) {
+//     $min: map.get($break-points, $_min) + 1;
+//   } @else if meta.type-of($_min) != 'number' {
+//     @error '#{ $_min } is not a number.';
+//   }
+
+//   @if map.has-key($break-points, $_max) {
+//     $max: map.get($break-points, $_max);
+//   } @else if meta.type-of($_max) != 'number' {
+//     @error '#{ $_max } is not a number.';
+//   }
+
+//   @media screen and (min-width: #{$min}px) and (max-width: #{$max}px) {
+//     @content;
+//   }
+// }
+
+@mixin line-clamp($count: 1) {
+  @if meta.type-of($count) != 'number' {
+    @error '#{ $count } is not a number.';
+  }
+
+  @if $count == 1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  } @else {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $count;
+  }
+}

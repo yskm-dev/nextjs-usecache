@@ -1,0 +1,20 @@
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.fixAll.stylelint": "explicit"
+  },
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "prettier.configPath": ".prettierrc.json",
+  "files.insertFinalNewline": true,
+  "stylelint.validate": ["css", "scss"],
+  "eslint.validate": [
+    "react",
+    "Next.js",
+    "typescript",
+    "javascript",
+    "javascriptreact",
+    "typescriptreact"
+  ]
+}
