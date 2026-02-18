@@ -1,0 +1,8 @@
+name = "nextjs-usecache"
+main = ".open-next/worker.js"
+compatibility_date = "2026-02-16"
+compatibility_flags = ["nodejs_compat", "global_fetch_strictly_public"]
+
+[assets]
+directory = ".open-next/assets"
+binding = "ASSETS"
