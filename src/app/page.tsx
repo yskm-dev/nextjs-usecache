@@ -8,7 +8,7 @@ export default async function Page() {
     <div className={styles.container}>
       <h1 className={styles.title}>天気ダッシュボード</h1>
       <p className={styles.description}>
-        STEP 6: cacheTag + revalidateTag
+        Open Meteo API × use cache 学習アプリ
       </p>
       <div className={styles.grid}>
         {CITIES.map((city) => (

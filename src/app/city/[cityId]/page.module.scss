@@ -17,10 +17,29 @@
   }
 }
 
-.title {
+.header {
+  display: flex;
+  gap: rem(16);
+  align-items: center;
   margin-top: rem(16);
+}
+
+.title {
   font-size: rem(28);
   font-weight: 700;
+}
+
+.lastUpdated {
+  margin-top: rem(8);
+  font-size: rem(12);
+  color: #666;
+}
+
+.dynamicNote {
+  margin-top: rem(12);
+  font-size: rem(12);
+  color: #555;
+  text-align: center;
 }
 
 .current {

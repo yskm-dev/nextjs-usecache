@@ -1,9 +1,9 @@
-import { cacheLife, cacheTag } from 'next/cache';
 import {
   getWeather,
   getWeatherDescription,
   getWeatherEmoji,
 } from '@/lib/weather';
+import { cacheLife, cacheTag } from 'next/cache';
 import styles from './WeatherCard.module.scss';
 
 export async function WeatherCard({

@@ -82,19 +82,6 @@ export function getWeatherEmoji(code: number): string {
   return WEATHER_EMOJIS[code] ?? '❓';
 }
 
-// 計測用ラッパー: use cache の外側で時間を計測する
-export async function getWeatherWithTiming(
-  cityName: string,
-  latitude: number,
-  longitude: number,
-): Promise<WeatherResponse> {
-  const start = performance.now();
-  const result = await getWeather(latitude, longitude);
-  const elapsed = performance.now() - start;
-  console.log(`[WeatherCard] ${cityName}: ${elapsed.toFixed(0)}ms`);
-  return result;
-}
-
 export async function getWeather(
   latitude: number,
   longitude: number,

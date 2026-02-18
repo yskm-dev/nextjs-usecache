@@ -1,0 +1,8 @@
+@use "@/styles/variables" as var;
+@use "@/styles/extension" as *;
+
+.time {
+  margin-top: rem(8);
+  font-size: rem(12);
+  color: #666;
+}
